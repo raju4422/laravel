@@ -107,7 +107,7 @@ return [
     'prohibited_unless' => 'The :attribute field is prohibited unless :other is in :values.',
     'prohibits' => 'The :attribute field prohibits :other from being present.',
     'regex' => 'The :attribute format is invalid.',
-    'required' => 'The :attribute field is required.',
+    'required' => 'Please fill the :attribute field .',
     'required_if' => 'The :attribute field is required when :other is :value.',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
     'required_with' => 'The :attribute field is required when :values is present.',
@@ -157,6 +157,12 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+     'email'=>'Email ',
+     'password'=>'Password ',
+     'phone'=>'Phone ',
+     'first_name'=>'First Name ',
+     'last_name'=>'Last Name '
+    ],
 
 ];
