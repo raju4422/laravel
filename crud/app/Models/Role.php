@@ -4,8 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Models\User;
 
 class Role extends Model
 {
-    use HasFactory;
+    //use HasFactory;
+    protected $table    = "roles";
+    protected $fillable = ['role'];
+
+
+
+    // public function user(){
+
+    //     return $this->hasMany(User::class);
+    // }
 }

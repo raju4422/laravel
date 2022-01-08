@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -39,6 +40,7 @@ class UserController extends Controller
             'email'      => $request->email,
             'gender'     => $request->gender,
             'phone'      => $request->phone,
+            'role_id'      => '2',
             'password'   => Hash::make($request->password),
         );
 
@@ -59,11 +61,16 @@ class UserController extends Controller
         $password = $request->password;
 
         $user_data = User::where('email', $email)->first();
+        if(empty($user_data)){
+            return back()->with('error', 'Email is Wrong..');
+
+        }else{
         if (Hash::check($password, $user_data['password'])) {
             $data = array(
                 'isLoggedIn' => true,
                 'email'      => $user_data['email'],
                 'name'       => $user_data['first_name'] . ' ' . $user_data['last_name'],
+                'id' => $user_data['id']
             );
 
             Session($data);
@@ -76,6 +83,7 @@ class UserController extends Controller
         } else {
             return back()->with('error', 'Password is Wrong..');
         }
+    }
         // var_dump($user_data);
 
     }
@@ -83,7 +91,7 @@ class UserController extends Controller
     public function showUsers($id = null)
     {
 
-        $user_details = User::all()->toArray();
+        $user_details = User::all();
         if (!empty($id)) {
             $column    = "col-md-6 col-xs-12";
             $two_rows  = true;
@@ -138,6 +146,14 @@ class UserController extends Controller
             return false;
         }
 
+
+    }
+
+    public function test(){
+
+        $role_details = Role::get();
+         var_dump($role_details);
+        return view('test',compact('role_details'));
 
     }
 

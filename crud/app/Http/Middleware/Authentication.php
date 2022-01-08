@@ -4,6 +4,11 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
+
+
+
 
 class Authentication
 {
@@ -16,8 +21,14 @@ class Authentication
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->session()->has('isLoggedIn')) {
-            return $next($request);
+
+         $sessionData = Session::all();
+         if ($request->session()->has('isLoggedIn')) {
+            if($sessionData['email'] == DB::table('users')->where('id', $sessionData['id'])->first()->email){
+                return $next($request);
+            }
+
+           
         } else {
             return redirect('/')->with('error', 'Please login First');
         }

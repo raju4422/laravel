@@ -27,3 +27,4 @@ Route::post('/delete/{id}', [UserController::class, 'delete'])->name('delete');
 
 Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard')->middleware('authenticate');
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
+Route::get('/test', [UserController::class, 'test'])->name('test');

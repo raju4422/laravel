@@ -15,7 +15,6 @@
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
                         <th scope="col">Phone</th>
-                        <!-- <th scope="col">Role</th> -->
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -23,9 +22,10 @@
                     @foreach($user_details as $val)
                     <tr>
                         <th scope="row">{{$val['id']}}</th>
-                        <td>{{$val['first_name']}} {{$val['last_name']}} </td>
+                        <td>{{$val->first_name}} {{$val->last_name}} </td>
                         <td>{{$val['email']}}</td>
                         <td>{{$val['phone']}}</td>
+                      
                         <td><a href="{{url('/edit')}}/{{$val['id']}}">Edit</a> <a class="remove" data-delete="{{$val['id']}}" href="javascript:void(0)">Delete</a> </td>
                     </tr>
                     @endforeach
