@@ -6,10 +6,19 @@ use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+       
+        
+    }
+
+
     public function index()
     {
 
@@ -106,6 +115,18 @@ class UserController extends Controller
 
     }
 
+
+    public function ApiShowUsers($id = null)
+    {
+
+        $user_details = User::all();
+        
+        return $user_details;
+
+    }
+
+
+
     public function updateUser(Request $request)
     {
 
@@ -151,10 +172,61 @@ class UserController extends Controller
 
     public function test(){
 
-        $role_details = Role::get();
-         var_dump($role_details);
-        return view('test',compact('role_details'));
+        // $user = new User();
 
+        // $user->role_id="2";
+        // $user->first_name="hari123";
+        // $user->last_name="chappidi";
+        // $user->password=bcrypt('123456');
+        // $user->email="hari123@gmail.com";
+        // $user->phone="4564564565";
+        // $user->gender="male";
+        // $user->save();
+
+
+        // $role = new Role();
+        // $role->role="Tester";
+        // $role->short_code="tester";
+        // $role->save();
+
+
+        $user = User::all();
+
+        $role = Role::all();
+        
+
+        
+        //var_dump($role);
+
+
+        //var_dump($role);
+
+
+
+
+
+        echo view('test',compact('user','role'));
+         
+       
+
+    }
+
+
+    public function menu(){
+       
+        $menu = DB::select('select * from level_1');
+        foreach($menu as $key=>$val){
+
+            $val->data=DB::select('select * from level_2 where level_1_id = "'.$val->id.'"');
+
+            foreach($val->data as $key =>$value){
+                $value->new_data=DB::select('select * from level_3 where level_2_id = "'.$value->id.'"');
+            }
+
+        }
+       // var_dump($menu);
+
+        echo view('pages.menu',compact('menu'));
     }
 
 }

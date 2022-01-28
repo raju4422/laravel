@@ -25,5 +25,8 @@
   var base_url = "<?php echo url('/');?>";
 </script>
 
+
+
+
 </body>
 </html>

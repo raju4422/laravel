@@ -18,10 +18,15 @@ class User extends Model
     }
 
 
-    // public function role(){
+    public function role(){
 
-    //     return $this->belongsTo(Role::class);
-    // }
+        return $this->belongsTo(Role::class);
+    }
+
+    public function address(){
+
+        return $this->hasOne(Address::class);
+    }
 
 
 

@@ -32,4 +32,9 @@
         <a href="{{route('register')}}">click here to register..</a>
     </form>
 </div>
+
+
+<div id="app">
+
+</div>
 @endsection
