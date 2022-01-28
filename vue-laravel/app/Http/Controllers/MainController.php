@@ -22,6 +22,12 @@ class MainController extends Controller
 
     public function index(){
 
+        return $this->table->get();
+
+    }
+
+    public function delete(Request $request,$id){
+        $this->table->delete()->where('id',$id);
     }
 
 
