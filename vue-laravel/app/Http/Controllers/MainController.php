@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+
+
+
 
 
 
@@ -26,8 +31,46 @@ class MainController extends Controller
 
     }
 
-    public function delete(Request $request,$id){
-        $this->table->delete()->where('id',$id);
+    public function delete(Request $request){
+       return $this->table->where('id',$request->user_id)->delete();
+    }
+
+
+    public function getDataById(Request $request){
+
+      return  $this->table->where('id',$request->id)->get();
+
+    }
+
+
+    public function login(Request $request){
+
+        $data= $this->table->where('email',$request->email)->first();
+        $response = null;
+        if(Hash::check($request->password, $data->password)){
+        $user_data = array(
+            'user_id'=>$data->id,
+            'user_email'=>$data->email
+        );
+         Session($user_data);
+         $response = array('response'=>true,'access_code'=>$data->login_code,'user_id'=>$data->id);
+        }else{
+            $response = array('response'=>false);
+        }
+
+        return $response;
+
+
+
+    }
+
+    public function update(Request $request){
+        $data = array(
+         'name'=>$request->name,
+         'email'=>$request->email
+
+        );
+        return $this->table->where('id',$request->id)->update($data);
     }
 
 
@@ -40,7 +83,7 @@ class MainController extends Controller
        );
 
 
-       $res=DB::insert('insert into users  (name,email,password) values (?, ?, ?)', [$request->name, $request->email,'123456']);
+       $res=DB::insert('insert into users  (name,email,password,login_code) values (?, ?, ?,?)', [$request->name, $request->email,Hash::make('123456'),rand(1000,9999)]);
        return $res;
 
     }
