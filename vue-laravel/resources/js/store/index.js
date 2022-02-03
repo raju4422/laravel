@@ -1,40 +1,21 @@
 import {createStore} from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
+import module1 from './module1/index' 
+import SecureLS from "secure-ls";
+const ls = new SecureLS({ isCompression: false });
+
+
 
 
 
 export default createStore({
-    state:{
-        isLoggedIn:false,
-        access_code:'',
-    },
-    mutations:{
-        isUserLoggedIn(state,value){
-        state.isLoggedIn = value
-        },
-        userLogout(state,value){
-            state.isLoggedIn = value
-        },
-        userAccessCode(state,value){
-            state.access_code = value
-        }
-    },
-    actions:{
-        setUserLoggedIn({ commit },payload){
-            commit('isUserLoggedIn',payload)
-        },
-        logoutUser({commit}){
-            commit('userLogout',false)
-        },
-        SetAccessCode({commit},payload){
-            commit('userAccessCode',payload)
-        },
-
+    modules:{
+        module1:module1
     },
 
     plugins: [
         createPersistedState({
-            storage: window.sessionStorage,
+            storage: window.sessionStorage
            
         })
       ]

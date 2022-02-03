@@ -49,7 +49,7 @@
                   type="password"
                   class="form-control"
                   v-model="login_data.password"
-                  placeholder="password"
+                  placeholder="password" autocomplete 
                 />
               </div>
 
@@ -84,6 +84,7 @@
 
 <script>
 import { session } from "../helper";
+import router from '../index'
 export default {
   data() {
     return {
@@ -102,11 +103,11 @@ export default {
         })
         .then((res) => {
           if (res.data.response) {
-            this.$store.dispatch("setUserLoggedIn", res.data.response);
-            this.$store.dispatch("SetAccessCode", res.data.access_code);
-
+            this.$store.dispatch("setUserLoggedIn", res.data.response).module1;
+            this.$store.dispatch("SetAccessCode", res.data.access_code).module1;
+            // router.push('/about');
           } else {
-            this.$store.dispatch("setUserLoggedIn", res.data.response);
+            this.$store.dispatch("setUserLoggedIn", res.data.response).module1;
           }
         });
     },

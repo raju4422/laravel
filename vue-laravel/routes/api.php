@@ -22,11 +22,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('save',[MainController::class,'save']);
- Route::get('getdata',[MainController::class,'index']);
+ Route::get('getdata',[MainController::class,'index'])->name('getdata');
  Route::post('delete',[MainController::class,'delete']);
  Route::post('getdatabyid',[MainController::class,'getDataById']);
  Route::post('update',[MainController::class,'update']);
  Route::post('login',[MainController::class,'login']);
+ Route::post('logout',[MainController::class,'logout']);
+ Route::get('test',[MainController::class,'test'])->name('test')->middleware('check');
+
 
 
 

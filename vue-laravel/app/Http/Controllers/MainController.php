@@ -27,8 +27,15 @@ class MainController extends Controller
 
     public function index(){
 
-        return $this->table->get();
 
+
+        
+
+        $res= $this->table->get();
+        $data = array('response'=>'true','data'=>$res);
+        return $data;
+
+     
     }
 
     public function delete(Request $request){
@@ -45,19 +52,22 @@ class MainController extends Controller
 
     public function login(Request $request){
 
-        $data= $this->table->where('email',$request->email)->first();
+        $data = $this->table->where('email',$request->email)->first();
         $response = null;
         if(Hash::check($request->password, $data->password)){
         $user_data = array(
             'user_id'=>$data->id,
-            'user_email'=>$data->email
+            'user_email'=>$data->email,
+            'access_code'=>$data->login_code,
+            'isLoggedIn'=>true
         );
          Session($user_data);
-         $response = array('response'=>true,'access_code'=>$data->login_code,'user_id'=>$data->id);
+         
+         $response = array('response'=>true,'access_code'=>$data->login_code,'user_id'=>$data->id,'isLoggedIn'=>true);
         }else{
             $response = array('response'=>false);
         }
-
+       
         return $response;
 
 
@@ -86,6 +96,18 @@ class MainController extends Controller
        $res=DB::insert('insert into users  (name,email,password,login_code) values (?, ?, ?,?)', [$request->name, $request->email,Hash::make('123456'),rand(1000,9999)]);
        return $res;
 
+    }
+
+    public function logout(Request $request){
+        // $request->session()->destroy();
+        // $request->session()->flush();
+       return  Session::flush();
+        
+    }
+
+
+    public function test(Request $request){
+        var_dump(Session::all());
     }
 
 

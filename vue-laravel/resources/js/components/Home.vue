@@ -1,49 +1,62 @@
 <template>
-
- 
-
   <div class="position-relative" style="z-index: 1">
     <!-- <Header/> -->
     <!-- <div class="position-absolute loading"></div> -->
+    <!-- {{$store.state.module1.access_code}} -->
     <div class="container position-relative pt-5">
       <div class="row">
-        <div class="col-md-6">
-          <table class="table table-bordered">
-            <thead class="">
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="item in users_data" :key="item.id">
-                <td scope="row">{{ item.name }}</td>
-                <td>{{ item.email }}</td>
-                <td>
-                  <router-link
-                    class="btn btn-primary"
-                    :to="{ name: 'edit', params: { id: item.id } }"
-                    >Edit</router-link
-                  >&nbsp;
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    v-on:click.native="deletePost(item.id)"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="col-md-12">
+          <div class="card mb-4">
+            <div class="card-header">
+              <i class="fas fa-table me-1"></i>
+              Users data
+            </div>
+            <div class="card-body table-responsive">
+              <table id="" class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Office</th>
+                    <th>Age</th>
+                    <th>Start date</th>
+                    <th>Manage</th>
+                  </tr>
+                </thead>
+
+                <tbody v-if="users_data.length">
+                  <tr v-for="item in users_data" :key="item.id">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.email }}</td>
+                    <td>Edinburgh</td>
+                    <td>61</td>
+                    <td>2011/04/25</td>
+                    <td>
+                      <router-link
+                        class="btn btn-primary"
+                        :to="{ name: 'edit', params: { id: item.id } }"
+                        >Edit</router-link
+                      >&nbsp;
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        v-on:click.native="deletePost(item.id)"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
-        <div class="col-md-6">
-          <div v-if="errors.length>0">{{errors}}</div>
+        <div class="col-md-6 d-none">
+          <div v-if="errors.length > 0">{{ errors }}</div>
           <form @submit.prevent="save_data">
             <label>Name</label>
             <input type="text" v-model="form_data.name" class="form-control" />
-            <span>{{errors.name}}</span>
+            <span>{{ errors.name }}</span>
             <br />
             <label>Email</label>
             <input type="text" v-model="form_data.email" class="form-control" />
@@ -58,11 +71,11 @@
 </template>
 
 <script>
-import { loader,session } from "../helper.js";
-import Header from '../components/Header.vue'
+import { loader, session } from "../helper.js";
+import Header from "../components/Header.vue";
 export default {
-  components:{
-    Header
+  components: {
+    Header,
   },
   data() {
     return {
@@ -72,7 +85,7 @@ export default {
       },
       users_data: [],
       loading: false,
-      errors:[]
+      errors: [],
     };
   },
   methods: {
@@ -81,17 +94,17 @@ export default {
       if (!this.form_data.name) {
         this.errors.push("First name required");
       }
-        if (!this.form_data.email) {
+      if (!this.form_data.email) {
         this.errors.push("email name required");
       }
 
-      if(this.errors.length==0){
-      axios.post("/api/save", this.form_data).then((res) => {
-        this.getData();
-        this.form_data.reset;
-      });
-      }else{
-        console.log(this.errors)
+      if (this.errors.length == 0) {
+        axios.post("/api/save", this.form_data).then((res) => {
+          this.getData();
+          this.form_data.reset;
+        });
+      } else {
+        console.log(this.errors);
       }
 
       //console.log(this.form_data)
@@ -99,22 +112,26 @@ export default {
 
     getData() {
       axios.get("/api/getdata").then((res) => {
-        this.users_data = res.data;
+        this.users_data = res.data.data;
       });
     },
     deletePost(id) {
       console.log("hello");
       if (confirm("Do you want to delete")) {
-        axios.post("/api/delete/", { user_id: id }).then((res) => {
-          this.getData();
-        });
+        axios
+          .post("/api/delete/", { user_id: id })
+          .then((res) => {
+            this.getData();
+          })
+          .error((error) => {
+            console.log(error);
+          });
       }
     },
   },
   created() {
     this.getData();
     loader();
-    
   },
 };
 </script>
