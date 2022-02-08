@@ -36,8 +36,7 @@ export default {
         return {
             id:0,
             res_data:{
-                name:'',
-                email:'',
+               
                 
             }
         }
@@ -60,10 +59,9 @@ export default {
     },
 
     created(){
-        this.id = this.$route.params.id
+        this.id = this.$store.state.module1.user_id
         axios.post('/api/getdatabyid',{id:this.id}).then(res=>{
-        this.res_data.name=res.data[0].name
-        this.res_data.email=res.data[0].email
+        this.res_data=res.data
 
         });
 

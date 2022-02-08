@@ -1,5 +1,11 @@
 <template>
   <div class="position-relative" style="z-index: 1">
+
+     <h1 class="mt-4">Dashboard</h1>
+        <ol class="breadcrumb mb-4">
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+        <hr />
     <!-- <Header/> -->
     <!-- <div class="position-absolute loading"></div> -->
     <!-- {{$store.state.module1.access_code}} -->
@@ -34,7 +40,7 @@
                     <td>
                       <router-link
                         class="btn btn-primary"
-                        :to="{ name: 'edit', params: { id: item.id } }"
+                        to="edit"
                         >Edit</router-link
                       >&nbsp;
                       <button

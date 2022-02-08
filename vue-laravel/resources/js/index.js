@@ -4,15 +4,20 @@ import About from './components/About.vue'
 import Home from './components/Home.vue'
 import Contact from './components/Contact.vue'
 import Edit from './components/Edit.vue'
+import Profile from './components/Profile.vue'
+import EditProfile from './components/EditProfile.vue'
+
 import Login from './components/Login.vue'
+import ScreenManageView from './components/ScreenManageView.vue'
+
 
 
 
 
 const routes = [
     {
-        path: '/',
-        name: 'home',
+        path: '/dashboard',
+        name: 'dashboard',
         component: Home
     },
     {
@@ -26,15 +31,28 @@ const routes = [
         component: Contact
     },
     {
-        path: '/edit/:id',
+        path: '/edit',
         name: 'edit',
         component: Edit
     },
+
+    {
+        path: '/profile',
+        name: 'profile',
+        component: Profile
+    },
+
     
     {
-        path: '/login',
-        name: 'login',
-        component: Login
+        path: '/edit-profile',
+        name: 'editProfile',
+        component: EditProfile
+    },
+    
+    {
+        path: '/',
+        name: 'dashboard',
+        component: Home
     }
 ];
 

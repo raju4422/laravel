@@ -45,7 +45,7 @@ class MainController extends Controller
 
     public function getDataById(Request $request){
 
-      return  $this->table->where('id',$request->id)->get();
+      return  $this->table->where('id',$request->id)->first();
 
     }
 
@@ -101,7 +101,10 @@ class MainController extends Controller
     public function logout(Request $request){
         // $request->session()->destroy();
         // $request->session()->flush();
-       return  Session::flush();
+       $res = Session::flush();
+       if($res){
+           return array('response'=>true);
+       }
         
     }
 

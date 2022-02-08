@@ -83,8 +83,8 @@
 </template>
 
 <script>
-import { session } from "../helper";
-import router from '../index'
+// import { session } from "../helper";
+// import router from '../index'
 export default {
   data() {
     return {
@@ -102,9 +102,12 @@ export default {
           password: this.login_data.password,
         })
         .then((res) => {
+          console.log(res)
           if (res.data.response) {
             this.$store.dispatch("setUserLoggedIn", res.data.response).module1;
             this.$store.dispatch("SetAccessCode", res.data.access_code).module1;
+            this.$store.dispatch("setuserId", res.data.user_id).module1;
+
             // router.push('/about');
           } else {
             this.$store.dispatch("setUserLoggedIn", res.data.response).module1;

@@ -8,7 +8,6 @@
         <meta name="author" content="" />
         <title>Vue - Laravel</title>
 
-        <title>Laravel</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="{{asset('css/app.css')}}" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
@@ -21,14 +20,17 @@
     </head>
     <body class="antialiased">
        <div id="app">
-       <header_view></header_view>
+           
+       <!-- <header_view></header_view>
        <div id="layoutSidenav">
          <side_nav></side_nav>
          <body_view></body_view>
-        </div>
-
+        </div> -->
        <!-- <router-view></router-view> -->
-       <footer_view></footer_view>
+       <!-- <footer_view></footer_view> -->
+
+
+       <screen></screen>
 
 
        

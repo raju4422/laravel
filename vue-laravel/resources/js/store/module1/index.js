@@ -4,7 +4,8 @@ export default {
 state:{
     isLoggedIn:false,
     access_code:'',
-    api_response:false
+    api_response:false,
+    user_id:null
 },
 mutations:{
     isUserLoggedIn(state,value){
@@ -18,6 +19,9 @@ mutations:{
     },
     apiResponse(state,value){
         state.api_response = value
+    },
+    userId(state,value){
+        state.user_id = value
     }
 },
 actions:{
@@ -30,8 +34,12 @@ actions:{
     SetAccessCode({commit},payload){
         commit('userAccessCode',payload)
     },
-    setApiResponse({commit},paylod){
+    setApiResponse({commit},payload){
         commit('apiResponse',payload)
+    },
+
+    setuserId({commit},payload){
+        commit('userId',payload)
     }
 
 }
